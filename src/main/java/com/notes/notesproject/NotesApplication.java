@@ -17,10 +17,5 @@ public class NotesApplication extends Application {
         stage.show();
     }
 
-    public static void main(String[] args) {
-        //Database db=new Database();
-        //if(db.dbConnection())db.tableCheck();
-        //System.out.println("Success !");
-        launch();
-    }
+    public static void main(String[] args) {launch();}
 }
