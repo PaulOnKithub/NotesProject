@@ -1,6 +1,8 @@
 package com.notes.notesproject;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Database {
     Connection conn=null;
@@ -38,18 +40,48 @@ public class Database {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    boolean insertRecord(NoteRecord recordVal){
+
+        String sqlInput="INSERT INTO NotesTable(Tag,NoteContent,Date) VALUES(?,?,?);";
+        try(Connection conn2=conn) {
+            PreparedStatement statement=conn2.prepareStatement(sqlInput);
+            statement.setString(1, recordVal.tag());
+            statement.setString(2, recordVal.noteValue());
+            statement.setString(3, recordVal.date());
+            statement.executeUpdate();
+            return true;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
 
 
     }
-
-    void insertRecord(NoteRecord r){
-
-    }
-    void getRecords(){
-
+    List<NoteRecord> getRecords(){
+        List<NoteRecord> allRecords= new ArrayList<>();
+        try(Connection conn3=conn){
+            String sqlInput="SELECT * FROM NotesTable;";
+            Statement statement= conn3.createStatement();
+            ResultSet rs=statement.executeQuery(sqlInput);
+            while(rs.next()){
+                String tagVal= rs.getString("Tag");
+                String noteVal=rs.getString("NoteContent");
+                String dateVal=rs.getString("Date");
+                NoteRecord retrievedRecord=new NoteRecord(tagVal,noteVal,dateVal);
+                allRecords.add(retrievedRecord);
+            }
+        } catch (SQLException e){
+            System.out.println(e.getMessage());
+        }
+        return allRecords;
     }
 }
 
 record NoteRecord(String tag,String noteValue,String date){
-
+    @Override
+    public String toString() {
+        return tag+ " ::: "+date;
+    }
 }

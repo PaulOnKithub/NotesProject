@@ -11,6 +11,7 @@ module com.example.notesproject {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.sql;
+    requires spring.core;
 
     opens com.notes.notesproject to javafx.fxml;
     exports com.notes.notesproject;
