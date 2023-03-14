@@ -1,0 +1,7 @@
+
+.background-pane{
+    -fx-background-radius: 20px;
+}
+#primaryPane{
+ -fx-background-radius: 20px;
+}

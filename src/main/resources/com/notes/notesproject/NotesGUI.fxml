@@ -4,6 +4,9 @@
 <?import javafx.scene.control.DatePicker?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
@@ -11,19 +14,22 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="415.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notes.notesproject.NotesController">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notes.notesproject.NotesController">
    <center>
-      <Pane prefHeight="415.0" prefWidth="617.0" BorderPane.alignment="CENTER">
+      <Pane id="primaryPane" prefHeight="381.0" prefWidth="564.0" styleClass="background-pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
             <TextArea fx:id="noteText" layoutX="235.0" layoutY="96.0" prefHeight="200.0" prefWidth="321.0" promptText="Enter Text Here" wrapText="true">
                <font>
-                  <Font size="18.0" />
+                  <Font name="System Italic" size="13.0" />
                </font>
             </TextArea>
             <Pane layoutX="9.0" layoutY="50.0" prefHeight="39.0" prefWidth="546.0">
                <children>
                   <DatePicker fx:id="date" layoutX="405.0" prefHeight="39.0" prefWidth="141.0" promptText="Set Date" />
-                  <TextField fx:id="tag" layoutX="227.0" layoutY="-1.0" prefHeight="41.0" prefWidth="157.0" promptText="Tag/Title" />
+                  <TextField fx:id="tag" layoutX="227.0" layoutY="-1.0" prefHeight="41.0" prefWidth="157.0" promptText="Tag/Title (Must be unique)">
+                     <font>
+                        <Font name="System Bold" size="11.0" />
+                     </font></TextField>
                   <Separator layoutX="213.0" orientation="VERTICAL" prefHeight="41.0" prefWidth="14.0" />
                   <Label layoutX="2.0" layoutY="2.0" prefHeight="35.0" prefWidth="126.0" text="Previous Entries">
                      <font>
@@ -32,19 +38,42 @@
                   </Label>
                </children>
             </Pane>
-            <Pane layoutX="7.0" layoutY="302.0" prefHeight="101.0" prefWidth="550.0">
+            <Pane layoutX="7.0" layoutY="302.0" prefHeight="54.0" prefWidth="550.0">
                <children>
-                  <Button alignment="BASELINE_LEFT" layoutX="6.0" layoutY="8.0" mnemonicParsing="false" onAction="#loadEntry" prefHeight="35.0" prefWidth="55.0" text="Load" />
-                  <Button fx:id="SaveButton" alignment="BASELINE_RIGHT" layoutX="413.0" layoutY="52.0" mnemonicParsing="false" onAction="#saveNote" prefHeight="35.0" prefWidth="130.0" text="Save" />
-                  <Button alignment="BASELINE_RIGHT" layoutX="413.0" layoutY="8.0" mnemonicParsing="false" onAction="#clearTextArea" prefHeight="35.0" prefWidth="130.0" text="Clear" />
-                  <Button alignment="CENTER" layoutX="6.0" layoutY="52.0" mnemonicParsing="false" onAction="#deleteEntry" prefHeight="35.0" prefWidth="130.0" text="Delete" />
-                  <Button alignment="BASELINE_RIGHT" layoutX="80.0" layoutY="8.0" mnemonicParsing="false" onAction="#modifyEntry" prefHeight="35.0" prefWidth="55.0" text="modify" />
+                  <Button alignment="BASELINE_RIGHT" layoutX="123.0" layoutY="11.0" mnemonicParsing="false" onAction="#loadEntry" prefHeight="35.0" prefWidth="90.0" text="Load" />
+                  <Button fx:id="SaveButton" alignment="BASELINE_LEFT" layoutX="335.0" layoutY="11.0" mnemonicParsing="false" onAction="#saveNote" prefHeight="35.0" prefWidth="85.0" text="Save" />
+                  <Button alignment="BASELINE_RIGHT" layoutX="451.0" layoutY="11.0" mnemonicParsing="false" onAction="#clearTextArea" prefHeight="35.0" prefWidth="95.0" text=" Clear/New" />
+                  <Button alignment="BASELINE_LEFT" layoutX="6.0" layoutY="11.0" mnemonicParsing="false" onAction="#deleteEntry" prefHeight="35.0" prefWidth="92.0" text="Delete" />
                </children>
             </Pane>
-            <Pane layoutX="-2.0" layoutY="6.0" prefHeight="35.0" prefWidth="564.0">
+            <Pane layoutX="-2.0" layoutY="-5.0" prefHeight="35.0" prefWidth="564.0" styleClass="background-pane" stylesheets="@Stylesheet.css">
                <children>
-                  <Button layoutX="521.0" layoutY="5.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
-                  <Button layoutX="468.0" layoutY="5.0" mnemonicParsing="false" onAction="#minimizeButton" text="Min" />
+                  <Button layoutX="531.0" layoutY="5.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
+                  <Button layoutX="477.0" layoutY="5.0" mnemonicParsing="false" onAction="#minimizeButton" text="Min" />
+                  <MenuBar fx:id="menuBar" layoutX="2.0" layoutY="5.0">
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Edit">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Delete" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <Label alignment="CENTER" layoutX="201.0" layoutY="5.0" prefHeight="17.0" prefWidth="201.0" text="Notes App">
+                     <font>
+                        <Font size="17.0" />
+                     </font>
+                  </Label>
                </children>
             </Pane>
             <ListView fx:id="entireList" layoutX="8.0" layoutY="96.0" prefHeight="200.0" prefWidth="213.0" />

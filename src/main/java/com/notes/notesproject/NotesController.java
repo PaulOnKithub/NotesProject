@@ -1,27 +1,27 @@
 package com.notes.notesproject;
 
-import com.almasb.fxgl.app.PrimaryStageWindow;
 import javafx.application.Platform;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.springframework.util.StringUtils;
 
 import java.net.URL;
-import java.sql.Connection;
-import java.sql.SQLException;
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Objects;
+import java.util.ResourceBundle;
+//add error log, menu bar.
+
 
 
 public class NotesController implements Initializable{
     @FXML
     private DatePicker date;
+    @FXML
+    private MenuBar menuBar;
     @FXML
     private Button SaveButton;
 
@@ -45,8 +45,24 @@ public class NotesController implements Initializable{
 
     @FXML
     void deleteEntry(ActionEvent event) {
-
-    }
+        NoteRecord r=entireList.getSelectionModel().getSelectedItem();
+        if(!Objects.isNull(r)) {
+            if (db.deleteRecord(r)) {
+                Alert delSuccess = new Alert(Alert.AlertType.INFORMATION);
+                delSuccess.setTitle("Successful Deletion");
+                delSuccess.setHeaderText("Operation Successful");
+                delSuccess.setContentText("The selected Note has been successfully deleted");
+                delSuccess.showAndWait();
+                entireList.getItems().remove(r);
+            }
+        }else {
+                Alert noRecordSelected = new Alert(Alert.AlertType.ERROR);
+                noRecordSelected.setTitle("Unsuccessful Deletion");
+                noRecordSelected.setHeaderText("Operation Failure");
+                noRecordSelected.setContentText("No Note Has Been Selected for Deletion");
+                noRecordSelected.showAndWait();
+            }
+        }
 
     @FXML
     void exitButton(ActionEvent event) {
@@ -58,21 +74,25 @@ public class NotesController implements Initializable{
     @FXML
     void loadEntry(ActionEvent event) {
         NoteRecord selectedItem=entireList.getSelectionModel().getSelectedItem();
-        clearTextArea(event);
-        tag.setText(selectedItem.tag());
-        noteText.setText(selectedItem.noteValue());
-
+        if(!Objects.isNull(selectedItem)) {
+            clearTextArea(event);
+            tag.setText(selectedItem.tag());
+            noteText.setText(selectedItem.noteValue());
+            date.setValue(LocalDate.parse(selectedItem.date()));
+        }else {
+            Alert errLoading = new Alert(Alert.AlertType.ERROR);
+            errLoading.setTitle("Unsuccessful Load");
+            errLoading.setHeaderText("Operation Failure");
+            errLoading.setContentText("No Note Has Been Selected for Loading");
+            errLoading.showAndWait();
+        }
     }
-    @FXML
-    void modifyEntry(ActionEvent event) {
 
-    }
 
     @FXML
     void minimizeButton(ActionEvent event) {
         Stage stage= (Stage) ((Node)event.getTarget()).getScene().getWindow();
         stage.setIconified(true);
-
     }
 
     @FXML
@@ -82,9 +102,31 @@ public class NotesController implements Initializable{
         String tagText = tag.getText();
         String notes = noteText.getText();
         if (!(StringUtils.isEmpty(tagText) && StringUtils.isEmpty(notes))) {
-            String dateText = StringUtils.isEmpty(date.toString()) ? LocalDate.now().toString() : date.getValue().toString();
-            NoteRecord recordVal = new NoteRecord(tagText, notes, dateText);
-            if (db.insertRecord(recordVal)) clearTextArea(event);
+            try {
+                String dateText = date.getValue().toString();
+                if (!(StringUtils.isEmpty(dateText))) {
+                    NoteRecord recordVal = new NoteRecord(tagText, notes, dateText);
+                    if (db.insertRecord(recordVal)) clearTextArea(event);
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setTitle("Success");
+                    alert.setContentText("Note successfully saved in database");
+                    alert.setHeaderText("Save Operation");
+                    alert.showAndWait();
+                    entireList.getItems().add(recordVal);
+                }
+            }catch(Exception e){
+                Alert dateWarning = new Alert(Alert.AlertType.WARNING);
+                dateWarning.setTitle("Empty Date");
+                dateWarning.setContentText("Set a date before saving the note entry");
+                dateWarning.setHeaderText("Date Not Set");
+                dateWarning.showAndWait();
+            }
+        }else {
+            Alert saveErralert=new Alert(Alert.AlertType.WARNING);
+            saveErralert.setTitle("Empty Content");
+            saveErralert.setContentText("The is no text in the text area to save; add text before saving");
+            saveErralert.setHeaderText("No Text input");
+            saveErralert.showAndWait();
         }
     }
 
