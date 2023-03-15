@@ -3,7 +3,11 @@ package com.notes.notesproject;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
+The app relies on a sqlite database which is available to the app without the need for a separate server process.
+For the database process to run, jdbc sqlite library must be added to the dependencies.
+A record is the interface between the underlying database and the frontend.
+*/
 public class Database {
     Connection conn=null;
 
@@ -38,7 +42,7 @@ public class Database {
             System.out.println("Table Creation"+e.getMessage());
         }
     }
-
+//Insert record to database
     boolean insertRecord(NoteRecord recordVal){
 
         String sqlInput="INSERT INTO NotesTable(Tag,NoteContent,Date) VALUES(?,?,?);";
@@ -56,6 +60,7 @@ public class Database {
 
 
     }
+    //Retrieve all records from table, return a list of records
     List<NoteRecord> getRecords(){
         List<NoteRecord> allRecords= new ArrayList<>();
         try(Connection conn3=DriverManager.getConnection("jdbc:sqlite:Notes.db")){
@@ -74,7 +79,7 @@ public class Database {
         }
         return allRecords;
     }
-
+    //Delete entry in database
     boolean deleteRecord(NoteRecord r) {
         try (Connection conn4 = DriverManager.getConnection("jdbc:sqlite:Notes.db")) {
             String sqlStatement="DELETE FROM NotesTable WHERE Tag=?;";
@@ -89,6 +94,7 @@ public class Database {
     }
 }
 
+//Utilizing a record. A simple and effective way to interact with the database
 record NoteRecord(String tag,String noteValue,String date){
     @Override
     public String toString() {

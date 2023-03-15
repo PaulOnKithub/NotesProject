@@ -22,8 +22,6 @@ public class NotesController implements Initializable{
     private DatePicker date;
     @FXML
     private MenuBar menuBar;
-    @FXML
-    private Button SaveButton;
 
     @FXML
     private ListView<NoteRecord> entireList;
@@ -37,6 +35,7 @@ public class NotesController implements Initializable{
     Database db = new Database();
 
     @FXML
+    //Clear text to enable new input
     void clearTextArea(ActionEvent event) {
         tag.setText("");
         noteText.setText("");
@@ -44,17 +43,23 @@ public class NotesController implements Initializable{
     }
 
     @FXML
+    //From list view,select an item and delete from database. Retrieve new list and update
     void deleteEntry(ActionEvent event) {
         NoteRecord r=entireList.getSelectionModel().getSelectedItem();
+        //checking if the selected item is a null entry(i.e. no record has been selected)
         if(!Objects.isNull(r)) {
+            //Calling the delete method in database class, which returns true if successfully deleted record
             if (db.deleteRecord(r)) {
+                //Displaying delete success alert box
                 Alert delSuccess = new Alert(Alert.AlertType.INFORMATION);
                 delSuccess.setTitle("Successful Deletion");
                 delSuccess.setHeaderText("Operation Successful");
                 delSuccess.setContentText("The selected Note has been successfully deleted");
                 delSuccess.showAndWait();
+                //Update list
                 entireList.getItems().remove(r);
             }
+            //The selected entry was a null entry thus showing an alert box alerting user
         }else {
                 Alert noRecordSelected = new Alert(Alert.AlertType.ERROR);
                 noRecordSelected.setTitle("Unsuccessful Deletion");
@@ -72,14 +77,17 @@ public class NotesController implements Initializable{
     }
 
     @FXML
+    //From the list view, load selected item to the text area
     void loadEntry(ActionEvent event) {
         NoteRecord selectedItem=entireList.getSelectionModel().getSelectedItem();
+        //Checking whether selected item is not a null reecord
         if(!Objects.isNull(selectedItem)) {
             clearTextArea(event);
             tag.setText(selectedItem.tag());
             noteText.setText(selectedItem.noteValue());
             date.setValue(LocalDate.parse(selectedItem.date()));
         }else {
+            //No item was selected, alerting, user
             Alert errLoading = new Alert(Alert.AlertType.ERROR);
             errLoading.setTitle("Unsuccessful Load");
             errLoading.setHeaderText("Operation Failure");
@@ -96,11 +104,13 @@ public class NotesController implements Initializable{
     }
 
     @FXML
+    //Select user input from text area, pass to database through save method in database class
     void saveNote(ActionEvent event) {
-
+        //Ensuring a database connection is established and setting up required table if not already set up
         if (db.dbConnection()) db.tableCheck();
         String tagText = tag.getText();
         String notes = noteText.getText();
+        //Save to database only if there is user input in text area
         if (!(StringUtils.isEmpty(tagText) && StringUtils.isEmpty(notes))) {
             try {
                 String dateText = date.getValue().toString();
@@ -132,6 +142,7 @@ public class NotesController implements Initializable{
 
 
     @Override
+    //Populate list view on loading of scene
     public void initialize(URL url, ResourceBundle resourceBundle) {
         if(db.dbConnection()){
             db.tableCheck();

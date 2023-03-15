@@ -13,6 +13,7 @@ public class NotesApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
         Parent root=FXMLLoader.load(getClass().getResource("NotesGUI.fxml"));
+        //Enabling click to drag , since the stage pane is set to invisible
         final double[] xOffset = new double[1];
         final double[] yOffset = new double[1];
         root.setOnMousePressed(event -> {

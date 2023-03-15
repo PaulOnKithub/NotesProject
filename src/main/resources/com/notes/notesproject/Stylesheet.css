@@ -1,7 +1,13 @@
-
+.root{
+    background-image: linear-gradient(to right,#5E5BBD,#5E5BF2 );
+}
 .background-pane{
-    -fx-background-radius: 20px;
+    -fx-background-radius: 7px;
+    -fx-background-color: background-image;
 }
 #primaryPane{
- -fx-background-radius: 20px;
+ -fx-background-radius: 10px;
+}
+.button {
+  -fx-border: 2px solid white;
 }
