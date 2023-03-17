@@ -1,13 +1,18 @@
 .root{
     background-image: linear-gradient(to right,#5E5BBD,#5E5BF2 );
+
 }
-.background-pane{
-    -fx-background-radius: 7px;
-    -fx-background-color: background-image;
+.button{
+    -fx-background-color: linear-gradient(to right,#5E5BBD,#5E5BF2);
+    -fx-border-color: white;
 }
-#primaryPane{
- -fx-background-radius: 10px;
+.button:hoover{
+    -fx-fill: red;
+
 }
-.button {
-  -fx-border: 2px solid white;
+.pane{
+    -fx-background-color: linear-gradient(to right,#5A80F0,#7A80F0);
+}
+.topPane{
+    -fx-background-color: #66A2C6;
 }

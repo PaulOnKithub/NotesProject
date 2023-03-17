@@ -13,7 +13,6 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
 import java.util.ResourceBundle;
-//add error log, menu bar.
 
 
 

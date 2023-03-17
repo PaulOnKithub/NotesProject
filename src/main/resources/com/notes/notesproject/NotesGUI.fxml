@@ -17,7 +17,7 @@
 
 <BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="364.0" prefWidth="564.0" xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.notes.notesproject.NotesController">
    <center>
-      <Pane id="primaryPane" prefHeight="381.0" prefWidth="564.0" styleClass="background-pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
+      <Pane id="primaryPane" prefHeight="381.0" prefWidth="564.0" styleClass="pane" stylesheets="@Stylesheet.css" BorderPane.alignment="CENTER">
          <children>
             <TextArea fx:id="noteText" layoutX="235.0" layoutY="96.0" prefHeight="200.0" prefWidth="321.0" promptText="Enter Text Here" styleClass="background-pane" wrapText="true">
                <font>
@@ -26,7 +26,7 @@
             </TextArea>
             <Pane layoutX="9.0" layoutY="50.0" prefHeight="39.0" prefWidth="546.0">
                <children>
-                  <DatePicker fx:id="date" layoutX="405.0" prefHeight="39.0" prefWidth="141.0" promptText="Set Date" styleClass="background-pane" />
+                  <DatePicker fx:id="date" layoutX="405.0" prefHeight="39.0" prefWidth="141.0" promptText="Set Date" />
                   <TextField fx:id="tag" layoutX="227.0" layoutY="-1.0" prefHeight="41.0" prefWidth="157.0" promptText="Tag/Title (Must be unique)">
                      <font>
                         <Font name="System Bold" size="11.0" />
@@ -51,11 +51,11 @@
                      </styleClass></Button>
                </children>
             </Pane>
-            <Pane layoutX="-2.0" layoutY="-5.0" prefHeight="35.0" prefWidth="564.0" styleClass="background-pane" stylesheets="@Stylesheet.css">
+            <Pane layoutX="-2.0" layoutY="-5.0" prefHeight="35.0" prefWidth="564.0" styleClass="topPane" stylesheets="@Stylesheet.css">
                <children>
-                  <Button layoutX="531.0" layoutY="5.0" mnemonicParsing="false" onAction="#exitButton" styleClass="background-pane" text="Exit" />
-                  <Button layoutX="477.0" layoutY="5.0" mnemonicParsing="false" onAction="#minimizeButton" styleClass="background-pane" text="Min" />
-                  <MenuBar fx:id="menuBar" layoutX="2.0" layoutY="5.0" styleClass="background-pane">
+                  <Button layoutX="526.0" layoutY="5.0" mnemonicParsing="false" onAction="#exitButton" text="Exit" />
+                  <Button layoutX="477.0" layoutY="5.0" mnemonicParsing="false" onAction="#minimizeButton" text="Min" />
+                  <MenuBar fx:id="menuBar" layoutX="2.0" layoutY="5.0" styleClass="topPane">
                     <menus>
                       <Menu mnemonicParsing="false" text="File">
                         <items>
