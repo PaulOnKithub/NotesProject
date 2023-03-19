@@ -3,12 +3,16 @@ package com.notes.notesproject;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.stage.Stage;
 import org.springframework.util.StringUtils;
 
+import java.io.IOException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -79,7 +83,7 @@ public class NotesController implements Initializable{
     //From the list view, load selected item to the text area
     void loadEntry(ActionEvent event) {
         NoteRecord selectedItem=entireList.getSelectionModel().getSelectedItem();
-        //Checking whether selected item is not a null reecord
+        //Checking whether selected item is not a null record
         if(!Objects.isNull(selectedItem)) {
             clearTextArea(event);
             tag.setText(selectedItem.tag());
@@ -138,6 +142,18 @@ public class NotesController implements Initializable{
             saveErralert.showAndWait();
         }
     }
+    @FXML
+    void readerView(ActionEvent event) throws IOException {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("ReaderView.fxml"));
+        Parent readerLoader=loader.load();
+        ReaderController controller=loader.getController();
+        controller.setReaderText(noteText.getText());
+        Stage readerStage=new Stage();
+        readerStage.setScene(new Scene(readerLoader));
+        readerStage.setTitle("Reader View");
+
+        readerStage.show();
+    }
 
 
     @Override
@@ -148,6 +164,7 @@ public class NotesController implements Initializable{
             entireList.getItems().addAll(db.getRecords());
         }
     }
+
 }
 
 

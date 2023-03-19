@@ -8,7 +8,7 @@
 }
 .button:hoover{
     -fx-fill: red;
-
+    -fx-background-color: white;
 }
 .pane{
     -fx-background-color: linear-gradient(to right,#5A80F0,#7A80F0);

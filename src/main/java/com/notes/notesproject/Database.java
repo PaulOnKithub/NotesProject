@@ -6,7 +6,7 @@ import java.util.List;
 /*
 The app relies on a sqlite database which is available to the app without the need for a separate server process.
 For the database process to run, jdbc sqlite library must be added to the dependencies.
-A record is the interface between the underlying database and the frontend.
+A record type is the interface between the underlying database and the frontend.
 */
 public class Database {
     Connection conn=null;

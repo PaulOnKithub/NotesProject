@@ -49,6 +49,7 @@
                         <String fx:value="background-pane" />
                         <String fx:value="button" />
                      </styleClass></Button>
+                  <Button alignment="BASELINE_LEFT" layoutX="231.0" layoutY="10.0" mnemonicParsing="false" onAction="#readerView" prefHeight="35.0" prefWidth="85.0" styleClass="background-pane" text="Reader View" />
                </children>
             </Pane>
             <Pane layoutX="-2.0" layoutY="-5.0" prefHeight="35.0" prefWidth="564.0" styleClass="topPane" stylesheets="@Stylesheet.css">
