@@ -1,9 +1,12 @@
 # NotesProject
 A simple note taking App with an underlying SQLite database for notes storage.
-![App view 1](https://github.com/PaulOnKithub/NotesProject/assets/125145565/b2c6ccf2-10d3-44f6-a1c0-64b32455f3be)
+![APP VIEW](https://github.com/PaulOnKithub/NotesProject/assets/125145565/d07f76b8-462a-4274-898b-9f909f53f72c)
+
 
 # Supports a Reader View
-![Reader View](https://github.com/PaulOnKithub/NotesProject/assets/125145565/f9892903-34e5-4301-a692-3d6eafa1362b)
+![image](https://github.com/PaulOnKithub/NotesProject/assets/125145565/ed4d4ca7-1fc1-46e8-8928-f94e6591498e)
+
+
 
 # Required Libraries
 To run the application you'll need; 
