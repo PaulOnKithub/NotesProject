@@ -17,13 +17,15 @@ public class ReaderController {
         readerText.setText(text);
     }
 
-    @FXML
+   /* @FXML
     void closeReader(ActionEvent event) {
         Scene readerScene=((Node)event.getTarget()).getScene();
         Stage readerStage=(Stage) readerScene.getWindow();
         readerStage.close();
         event.consume();
     }
+
+    */
 
 }
 

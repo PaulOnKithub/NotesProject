@@ -28,7 +28,7 @@ public class NotesApplication extends Application {
         });
         Scene scene = new Scene(root);
         stage.setTitle("Notes");
-        stage.initStyle(StageStyle.TRANSPARENT);
+        //stage.initStyle(StageStyle.TRANSPARENT);
         stage.setScene(scene);
         stage.show();
     }

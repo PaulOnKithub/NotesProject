@@ -23,8 +23,8 @@ import java.util.ResourceBundle;
 public class NotesController implements Initializable{
     @FXML
     private DatePicker date;
-    @FXML
-    private MenuBar menuBar;
+   //@FXML
+   //private MenuBar menuBar;
 
     @FXML
     private ListView<NoteRecord> entireList;
@@ -72,12 +72,15 @@ public class NotesController implements Initializable{
             }
         }
 
-    @FXML
+    //@FXML
+    /*
     void exitButton(ActionEvent event) {
         Platform.exit();
         event.consume();
 
     }
+
+     */
 
     @FXML
     //From the list view, load selected item to the text area
@@ -100,11 +103,14 @@ public class NotesController implements Initializable{
     }
 
 
-    @FXML
+    //@FXML
+    /*
     void minimizeButton(ActionEvent event) {
         Stage stage= (Stage) ((Node)event.getTarget()).getScene().getWindow();
         stage.setIconified(true);
     }
+
+     */
 
     @FXML
     //Select user input from text area, pass to database through save method in database class
